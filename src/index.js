@@ -35,7 +35,7 @@ const logger = store => {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 // Single reducer store
-// const store = createStore(reducer)
+// const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 // Multiple reducers store and as a second argument we can pass the so called
 // enhancer (the middleware or multiple middlewares)
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)))
