@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import CounterControl from '../../components/CounterControl/CounterControl'
 import CounterOutput from '../../components/CounterOutput/CounterOutput'
-import * as actionTypes from '../../store/actions'
+import * as actionCreators from '../../store/actions/index'
 
 class Counter extends Component {
   render () {
@@ -42,32 +42,36 @@ class Counter extends Component {
   }
 }
 
-// The state being used is the state passed by Redux from it's reducer (store)
+// The state being used is the state passed by Redux from its reducer (store)
 const mapStateToProps = state => {
   return {
     // ctr: state.counter,
     // results: state.results
-    // For multiple reducers
+    // Examples for multiple reducers, defined in index.js in combineReducers
+    // function, that's how state.ctr and state.res are available
     ctr: state.ctr.counter,
     results: state.res.results
   }
 }
 
-// This way we are mapping the reducer (store) actions to props in order for
-// them to be available in the component
+// This way we are mapping the reducer (store) actions to props in order to be
+// available in the component
 const mapDispatchToProps = dispatch => {
   return {
     // dispatch has to have a type property and it should be written in caps
-    onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-    onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-    // in most cases an object is passed as a second property, example:
+    // onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+    // With actionCreators we are setting the actions to be dispatched
+    onIncrementCounter: () => dispatch(actionCreators.increment()),
+    onDecrementCounter: () => dispatch(actionCreators.decrement()),
+    // In most cases an object is passed as a second property, example:
     // onAdd: () => dispatch({type: actionTypes.ADD, payload: { val: 5 } }),
-    onAdd: () => dispatch({type: actionTypes.ADD, val: 5}),
-    onSubtract: () => dispatch({type: actionTypes.SUBTRACT, val: 5}),
+    onAdd: () => dispatch(actionCreators.add(5)),
+    onSubtract: () => dispatch(actionCreators.subtract(5)),
     // onAddResult: () => dispatch({type: actionTypes.ADD_RESULT}),
-    // For multiple reducers
-    onAddResult: (res) => dispatch({type: actionTypes.ADD_RESULT, result: res}),
-    onRemoveResult: (id) => dispatch({type: actionTypes.REMOVE_RESULT, id: id})
+    // Example for multiple reducers
+    // onAddResult: (res) => dispatch({type: actionTypes.ADD_RESULT, result: res}),
+    onAddResult: (res) => dispatch(actionCreators.addResult(res)),
+    onRemoveResult: (id) => dispatch(actionCreators.removeResult(id))
   }
 }
 
